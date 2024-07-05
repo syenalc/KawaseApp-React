@@ -12,6 +12,7 @@ import {
     purple,
     red
 } from "@mui/material/colors";
+import { BorderTop } from "@mui/icons-material";
 
 
 declare module "@mui/material/styles"{
@@ -62,34 +63,25 @@ export const theme=createTheme({
                 width: '100% !important', // Override the width here
                 placeholder:'nyuu',
               },
-              '& .MuiInputLabel-root': { 
-                transform: 'translate(5px, 5px) scale(0.9) !important' 
-              },
             },
           },
         },
-        MuiButton: {
+        MuiTextField: {
             styleOverrides: {
-              root: {
-                '& .css-55zb43-MuiButtonBase-root-MuiButton-root': {
-                    borderRadius: '8px',
-                    textTransform: 'none',
-                    fontSize: '16px',
+                root: {
+                    '& .MuiInputLabel-root': {
+                        borderTop: "1px solid black", // Add borderTop style here
+                    },
                 },
-                // borderRadius: '8px',
-                // textTransform: 'none',
-                // fontSize: '16px',
-              },
-              contained: {
-                '& .css-55zb43-MuiButtonBase-root-MuiButton-root': {
-                    backgroundColor: blue[500],
-                    color: 'black  !important',
-                    '&:hover': {
-                    backgroundColor: blue[700],
+            },
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    borderBottom: "1px solid black", // Add borderBottom style here
+                    borderLeft: "1px solid black",
+                    borderRight:"1px solid black"
                 },
-                },
-                
-              },
             },
         },
     },
