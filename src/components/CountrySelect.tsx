@@ -137,8 +137,7 @@ export default function CountrySelect() {
         )}
         />
       </Box>
-      {/* MUIのbuttonスタイルが適用されないためbootstrapのbuttonを使用 */}
-      <button type="button" className="btn btn-outline-primary" style={{margin:"auto", display:"flex", padding:"10px 40px",fontSize:"1.4em"}}>換算</button>
+      
       {/* <button style={{borderRadius:"5px",backgroundColor:"blue", border:"none", margin:"auto", display:"flex", padding:"10px 40px",fontSize:"1.4em"}}>換算する</button> */}
       {/* <Button 
         variant="contained" 
