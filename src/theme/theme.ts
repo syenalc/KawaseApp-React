@@ -42,7 +42,7 @@ export const theme=createTheme({
             main: "#007bff",
             light: blue[100],
             dark: blue[700],
-            lighter:blue[50],
+            // lighter:blue[50],
         },
         redColor:{
             main:red[500],

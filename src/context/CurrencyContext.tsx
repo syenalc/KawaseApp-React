@@ -29,7 +29,14 @@ interface CurrencyContextProps {
     setFrom: Dispatch<SetStateAction<string | null>> ;
     setTo: Dispatch<SetStateAction<string | null>> ;
     setRate: Dispatch<SetStateAction<number | null>> ;
-    
+    rate1:number |null;
+    rate2:number |null;
+    rate3:number |null;
+    rate4:number |null;
+    setRate1: Dispatch<SetStateAction<number | null>> ;
+    setRate2: Dispatch<SetStateAction<number | null>> ;
+    setRate3: Dispatch<SetStateAction<number | null>> ;
+    setRate4: Dispatch<SetStateAction<number | null>> ;
 }
 
 
@@ -43,13 +50,18 @@ export const CurrencyProvider:React.FC<{children:ReactNode}>=({children})=>{
     
     const [val1,setVal1]=useState<any>(null);
     const [val2,setVal2]=useState<any>(null);
-    let [rate, setRate] = useState<number | null>(null);
-    let [from, setFrom] = useState<string | null>(null);
-    let [to, setTo] = useState<string | null>(null);
+    const [rate, setRate] = useState<number | null>(null);
+    const [from, setFrom] = useState<string | null>(null);
+    const [to, setTo] = useState<string | null>(null);
+
+    const [rate1, setRate1] = useState<number | null>(null);
+    const [rate2, setRate2] = useState<number | null>(null);
+    const [rate3, setRate3] = useState<number | null>(null);
+    const [rate4, setRate4] = useState<number | null>(null);
 
     
     return(
-        <CurrencyContext.Provider value={{val1,val2,setVal1,setVal2,rate,from,to,setRate,setFrom,setTo}}>
+        <CurrencyContext.Provider value={{val1,val2,setVal1,setVal2,rate,from,to,setRate,setFrom,setTo,rate1,rate2,rate3,rate4,setRate1,setRate2,setRate3,setRate4}}>
             {children}
         </CurrencyContext.Provider>
     );

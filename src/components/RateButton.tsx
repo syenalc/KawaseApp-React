@@ -44,7 +44,7 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         throw new Error('CurrencySelect must be used within a CurrencyProvider');
     }
 
-    const {val1, val2,from,to,rate,setFrom,setTo,setRate} = currencyContext2;
+    const {val1, val2,from,to,rate,setFrom,setTo,setRate,setRate1,setRate2,setRate3,setRate4} = currencyContext2;
 
     
     const [amount, setAmount] = useState<string>('1');
@@ -78,7 +78,7 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         }
     }, [from, to, amount]);
 
-    const getCurrencyRate = () => {
+    const getCurrencyRate = () => {     
         if (val1 && val2) {
             setFrom(val1.currency);
             setTo(val2.currency);
@@ -90,9 +90,169 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         } else {
             console.log('val1またはval2がnullです');
         }
+
+        
         
     };
 
+    
+
+    const dataStorage=()=>{
+        //from,to,rateをストレージに保存する
+        if (from) localStorage.setItem('from', JSON.stringify(from));
+        if (to) localStorage.setItem('to', JSON.stringify(to));
+        if (rate) localStorage.setItem('rate', JSON.stringify(rate));
+        console.log(from,to,rate)
+
+        
+        // const formatted = today
+        //     .toLocaleDateString("ja-JP", {
+        //     year: "numeric",
+        //     month: "2-digit",
+        //     day: "2-digit",
+        // })
+        //     .split("/")
+        //     .join("-");
+        // console.log(formatted);
+
+        //今日の日付を取得
+        const today = new Date();
+        // 1週間前の日付を計算
+        const oneWeekAgo = new Date(today);
+        // console.log("aa");
+        // console.log(oneWeekAgo);
+        
+        oneWeekAgo.setDate(today.getDate() - 7);
+        // console.log(oneWeekAgo.setDate(today.getDate() - 7));
+        // 2週間前の日付を計算
+        const twoWeekAgo = new Date(today);
+        // console.log(twoWeekAgo);
+        // console.log(oneWeekAgo.setDate(today.getDate() - 14));
+        twoWeekAgo.setDate(today.getDate() - 14);
+        // 3週間前の日付を計算
+        const threeWeekAgo = new Date(today);
+        threeWeekAgo.setDate(today.getDate() - 21);
+        // 4週間前の日付を計算
+        const fourWeekAgo = new Date(today);
+        fourWeekAgo.setDate(today.getDate() - 28);
+    
+    
+        //取得した日付のフォーマットを変更する関数
+        const formatdate=(adddate:Date)=>{
+            return (adddate.toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+            })
+                .split("/")
+                .join("-")
+            );
+        }
+
+        const formattedToday = formatdate(today);
+        console.log(formattedToday);
+        const formattedOneWeekAgo = formatdate(oneWeekAgo);
+        const formattedTwoWeekAgo = formatdate(twoWeekAgo);
+        const formattedThreeWeekAgo = formatdate(threeWeekAgo);
+        const formattedFourWeekAgo = formatdate(fourWeekAgo);
+        console.log(formattedOneWeekAgo);
+        console.log(formattedTwoWeekAgo);
+        console.log(formattedThreeWeekAgo);
+        console.log(formattedFourWeekAgo);
+
+        const fetchData1wago = async () => {
+            const endpoint = 'convert';
+            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedOneWeekAgo}`;
+
+            try {
+                const res = await fetch(url, {
+                    method: "GET",
+                });
+                if (!res.ok) {
+                    throw new Error(`エラーが発生しました。ステータス:${res.status}`);
+                }
+                const data1: CurrencyData = await res.json();
+                setRate1(data1.result);
+                console.log(data1);
+                
+                // setLinkDisable(false);
+            } catch (e) {
+                console.log('エラーが発生しました', e);
+            }
+        };
+        fetchData1wago();
+
+        const fetchData2wago = async () => {
+            const endpoint = 'convert';
+            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedTwoWeekAgo}`;
+
+            try {
+                const res = await fetch(url, {
+                    method: "GET",
+                });
+                if (!res.ok) {
+                    throw new Error(`エラーが発生しました。ステータス:${res.status}`);
+                }
+                const data2: CurrencyData = await res.json();
+                setRate2(data2.result);
+                console.log(data2);
+                
+                // setLinkDisable(false);
+            } catch (e) {
+                console.log('エラーが発生しました', e);
+            }
+        };
+        fetchData2wago();
+
+        const fetchData3wago = async () => {
+            const endpoint = 'convert';
+            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedThreeWeekAgo}`;
+
+            try {
+                const res = await fetch(url, {
+                    method: "GET",
+                });
+                if (!res.ok) {
+                    throw new Error(`エラーが発生しました。ステータス:${res.status}`);
+                }
+                const data3: CurrencyData = await res.json();
+                setRate3(data3.result);
+                console.log(data3);
+                
+                // setLinkDisable(false);
+            } catch (e) {
+                console.log('エラーが発生しました', e);
+            }
+        };
+        fetchData3wago();
+
+        const fetchData4wago = async () => {
+            const endpoint = 'convert';
+            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedFourWeekAgo}`;
+
+            try {
+                const res = await fetch(url, {
+                    method: "GET",
+                });
+                if (!res.ok) {
+                    throw new Error(`エラーが発生しました。ステータス:${res.status}`);
+                }
+                const data4: CurrencyData = await res.json();
+                setRate4(data4.result);;
+                console.log(data4);
+                
+                // setLinkDisable(false);
+            } catch (e) {
+                console.log('エラーが発生しました', e);
+            }
+        };
+
+        fetchData4wago();
+    }
     // useEffect(() => {
     //     //val1,2はオブジェクト型なので一旦sting型へ変更
     //     if (val1) localStorage.setItem('val1', JSON.stringify(val1));
@@ -112,12 +272,7 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
     //     // console.log(parsedTrigger);//再レンダリングされたときに代わる
     //     console.log(trigger);//getCurrencyRate押したときに代わる
     // }, [trigger]);
-    const dataStorage=()=>{
-        if (from) localStorage.setItem('from', JSON.stringify(from));
-        if (to) localStorage.setItem('to', JSON.stringify(to));
-        if (rate) localStorage.setItem('rate', JSON.stringify(rate));
-        console.log(from,to,rate)
-    }
+    
     return(
         <>
             {/* MUIのbuttonスタイルが適用されないためbootstrapのbuttonを使用 */}
