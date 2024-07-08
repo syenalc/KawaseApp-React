@@ -39,7 +39,7 @@ export const theme=createTheme({
 
     palette:{
         blueColor:{
-            main: blue[500],
+            main: "#007bff",
             light: blue[100],
             dark: blue[700],
             lighter:blue[50],

@@ -16,7 +16,12 @@ function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
 // bgcolor:(theme)=>theme.palette.expenseColor.main,
 //                     color:"white",borderRadius:"10px",flexGrow:1}
 
+// interface IconBreadcrumbsProps{
+//     linkDisabled:boolean;
+// }
+// {linkDisabled}:IconBreadcrumbsProps
 export default function IconBreadcrumbs() {
+//   const linkDisabled = true; // リンクを無効にするためのフラグ
   return (
     <div role="presentation" >
       <Box sx={{display:"flex",justifyContent:"space-between", alignItems:"center", bgcolor:(theme)=>theme.palette.blueColor.main, minHeight:"10vh",padding:"20px"}}>
@@ -36,13 +41,17 @@ export default function IconBreadcrumbs() {
          </Link>
          <Link
           underline="hover"
-          sx={{ display: 'flex', alignItems: 'center' }}
+          sx={{
+             display: 'flex', 
+             alignItems: 'center',
+            }}
           color="inherit"
         //   href="/material-ui/getting-started/installation/"
           href="report"
          >
           <BarChartIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Report
+          {/* style={{pointerEvents:linkDisabled ? 'none' : 'auto'}} */}
+          <span>Report</span>
          </Link>
         {/* <Typography
           sx={{ display: 'flex', alignItems: 'center' }}
@@ -53,8 +62,7 @@ export default function IconBreadcrumbs() {
         </Typography> */}
         </Breadcrumbs>
       </Box>
-     
       <Outlet/>
     </div>
-  );
+    )
 }

@@ -1,21 +1,105 @@
 import * as React from 'react';
-import { useEffect,useState } from 'react';
+import { useEffect,useState,useContext,ReactNode , Dispatch, SetStateAction } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import { Button, Fab, ThemeProvider } from '@mui/material';
 import { theme } from '../theme/theme';
+import RateButton from './RateButton';
+import { CurrencyContext } from '../context/CurrencyContext';
+
 
 interface CountryType {
   code: string;
   label: string;
-  // phone?: string;
+  currency: string;
+  // suggested?: boolean;
 }
 
-export default function CountrySelect() {
-  const [val1,setVal1]=useState<CountryType | null>(null);
-  const [val2,setVal2]=useState<CountryType | null>(null);
+// interface CountrySelectProps {
+//   val1: CountryType | null;
+//   val2: CountryType | null;
+//   setVal1: React.Dispatch<React.SetStateAction<CountryType | null>>;
+//   setVal2: React.Dispatch<React.SetStateAction<CountryType | null>>;
+// }
+
+interface CountrySelectProps{
+  // linkDisabled:boolean;
+  // setLinkDisable:React.Dispatch<React.SetStateAction<boolean>>;
+  parsedTrigger:boolean
+}
+// interface CurrencyContextProps {
+//   val1: CountryType | null;
+//   val2: CountryType | null;
+//   setVal1: Dispatch<SetStateAction<CountryType | null>>;
+//   setVal2: Dispatch<SetStateAction<CountryType | null>>;
+// }
+// From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
+const countries: readonly CountryType[] = [
+  {
+    code: 'AE',
+    label: 'UAEディルハム',
+    currency: 'AED',
+    // phone: '971',
+  },
+  { code: 'AR', label: 'アルゼンチンペソ' ,currency: 'ARS'},
+  {
+    code: 'AU',
+    label: 'オーストラリアドル',
+    currency: 'AUD',
+    // phone: '61',
+  },
+  { code: 'BR', label: 'レアル',currency: 'BRL', },
+  {
+    code: 'CA',
+    label: 'カナダドル',
+    currency: 'CAD',
+    // phone: '1',
+  },
+  { code: 'CN', label: '元', currency: 'CNY' },
+  { code: 'CO', label: 'コロンビアペソ', currency: 'COP' },
+  {
+    code: 'DE',
+    label: 'ユーロ',
+    currency: 'EUR'
+    // phone: '49',
+  },
+  { code: 'GB', label: 'ポンド',currency: 'GBP', },
+  { code: 'ID', label: 'ルピア', currency: 'IDR', },
+  { code: 'IN', label: 'ルピー', currency: 'INR',},
+  {
+    code: 'JP',
+    label: '円',
+    currency: 'JPY'
+    // phone: '81',
+    // suggested: true,
+  },
+  { code: 'KR', label: 'ウォン',currency: 'KRW'},
+  { code: 'MX', label: 'メキシコペソ', currency: 'MXN'},
+  { code: 'PH', label: 'フィリピンペソ', currency: 'PHP'},
+  { code: 'TH', label: 'バーツ' ,currency: 'THB'},
+  { code: 'TR', label: 'リラ' ,currency: 'TRY'},
+  {
+    code: 'US',
+    label: 'ドル',
+    currency: 'USD',
+  },
+
+  { code: 'VN', label: 'ドン',currency: 'VND'},
+  { code: 'ZA', label: 'ランド',currency: 'ZAR'},
+];
+// {linkDisabled,setLinkDisable}:CountrySelectProps
+export default function CountrySelect({parsedTrigger}:CountrySelectProps) {
+  const currencyContext = useContext(CurrencyContext);
+
+  if (!currencyContext) {
+    throw new Error('CurrencySelect must be used within a CurrencyProvider');
+  }
+
+  const { val1, val2, setVal1, setVal2 } = currencyContext;
+  // const [val1,setVal1]=useState<CountryType | null>(null);
+  // const [val2,setVal2]=useState<CountryType | null>(null);
 
   const onChangeleft=(event:any,newValue:CountryType | null)=> setVal1(newValue);
   const onChangeright=(event:any,newValue:CountryType | null)=> setVal2(newValue);
@@ -68,7 +152,7 @@ export default function CountrySelect() {
                   src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                   alt=""
                 />
-                {option.label} ({option.code})
+                {option.label} ({option.currency}) 
               </Box>
             );
           }}
@@ -116,7 +200,7 @@ export default function CountrySelect() {
                   alt=""
                   
                 />
-                {option.label} ({option.code}) +{option.phone}
+                {option.label} ({option.currency}) 
               </Box>
             );
           }}
@@ -137,7 +221,11 @@ export default function CountrySelect() {
         )}
         />
       </Box>
-      
+      <RateButton 
+        parsedTrigger={parsedTrigger}
+        // linkDisabled={linkDisabled}
+        // setLinkDisable={setLinkDisable}
+      />
       {/* <button style={{borderRadius:"5px",backgroundColor:"blue", border:"none", margin:"auto", display:"flex", padding:"10px 40px",fontSize:"1.4em"}}>換算する</button> */}
       {/* <Button 
         variant="contained" 
@@ -155,59 +243,3 @@ export default function CountrySelect() {
     
   );
 }
-
-interface CountryType {
-  code: string;
-  label: string;
-  phone?: string;
-  suggested?: boolean;
-}
-
-// From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
-const countries: readonly CountryType[] = [
-  {
-    code: 'AE',
-    label: 'UAEディルハム',
-    // phone: '971',
-  },
-  { code: 'AR', label: 'アルゼンチンペソ' },
-  {
-    code: 'AU',
-    label: 'オーストラリアドル',
-    // phone: '61',
-  },
-  { code: 'BR', label: 'レアル' },
-  {
-    code: 'CA',
-    label: 'カナダドル',
-    // phone: '1',
-  },
-  { code: 'CN', label: '元', phone: '86' },
-  { code: 'CO', label: 'コロンビアペソ', phone: '57' },
-  {
-    code: 'DE',
-    label: 'ユーロ',
-    // phone: '49',
-  },
-  { code: 'GB', label: 'ポンド' },
-  { code: 'ID', label: 'ルピア' },
-  { code: 'IN', label: 'ルピー'},
-  {
-    code: 'JP',
-    label: '円',
-    // phone: '81',
-    // suggested: true,
-  },
-  { code: 'KR', label: 'ウォン'},
-  { code: 'MX', label: 'メキシコペソ'},
-  { code: 'PH', label: 'フィリピンペソ'},
-  { code: 'TH', label: 'バーツ' },
-  { code: 'TR', label: 'リラ' },
-  {
-    code: 'US',
-    label: 'ドル',
-  },
-
-  { code: 'VN', label: 'ドン'},
-  { code: 'ZA', label: 'ランド'},
-];
