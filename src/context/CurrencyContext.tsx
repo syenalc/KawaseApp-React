@@ -45,9 +45,6 @@ export const CurrencyContext=createContext<CurrencyContextProps | undefined>(und
 
 export const CurrencyProvider:React.FC<{children:ReactNode}>=({children})=>{
     
-    // const defaultCurrency1= localStorage.getItem('val1') ? JSON.parse(localStorage.getItem('val1')): {code: 'US',label: 'ドル',currency: 'USD'}
-    // const defaultCurrency2= localStorage.getItem('val2') ? localStorage.getItem('val2'): { code: 'JP',label: '円',currency: 'JPY'}
-    
     const [val1,setVal1]=useState<any>(null);
     const [val2,setVal2]=useState<any>(null);
     const [rate, setRate] = useState<number | null>(null);

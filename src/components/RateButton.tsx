@@ -26,14 +26,9 @@ interface CountryType {
     code: string;
     label: string;
     currency: string;
-    // suggested?: boolean;
 }
 
 interface RateButtonProps{
-    // val1: CountryType | null;
-    // val2: CountryType | null;
-    // // linkDisabled:boolean;
-    // // setLinkDisable:React.Dispatch<React.SetStateAction<boolean>>;
     parsedTrigger:boolean;
 
 }
@@ -53,8 +48,8 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
     useEffect(() => {
         if (from && to) {
             const fetchData = async () => {
-                const endpoint = 'convert';
-                const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+                const endpoint = process.env.REACT_APP_API_END;
+                const keeys = process.env.REACT_APP_API_KEY;
                 const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}`;
 
                 try {
@@ -67,8 +62,7 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
                     const data: CurrencyData = await res.json();
                     setRate(data.result);
                     console.log(data);
-                    
-                    // setLinkDisable(false);
+
                 } catch (e) {
                     console.log('エラーが発生しました', e);
                 }
@@ -104,23 +98,11 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         if (rate) localStorage.setItem('rate', JSON.stringify(rate));
         console.log(from,to,rate)
 
-        
-        // const formatted = today
-        //     .toLocaleDateString("ja-JP", {
-        //     year: "numeric",
-        //     month: "2-digit",
-        //     day: "2-digit",
-        // })
-        //     .split("/")
-        //     .join("-");
-        // console.log(formatted);
-
         //今日の日付を取得
         const today = new Date();
         // 1週間前の日付を計算
         const oneWeekAgo = new Date(today);
-        // console.log("aa");
-        // console.log(oneWeekAgo);
+
         
         oneWeekAgo.setDate(today.getDate() - 7);
         // console.log(oneWeekAgo.setDate(today.getDate() - 7));
@@ -150,19 +132,19 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         }
 
         const formattedToday = formatdate(today);
-        console.log(formattedToday);
+        // console.log(formattedToday);
         const formattedOneWeekAgo = formatdate(oneWeekAgo);
         const formattedTwoWeekAgo = formatdate(twoWeekAgo);
         const formattedThreeWeekAgo = formatdate(threeWeekAgo);
         const formattedFourWeekAgo = formatdate(fourWeekAgo);
-        console.log(formattedOneWeekAgo);
-        console.log(formattedTwoWeekAgo);
-        console.log(formattedThreeWeekAgo);
-        console.log(formattedFourWeekAgo);
+        // console.log(formattedOneWeekAgo);
+        // console.log(formattedTwoWeekAgo);
+        // console.log(formattedThreeWeekAgo);
+        // console.log(formattedFourWeekAgo);
 
         const fetchData1wago = async () => {
-            const endpoint = 'convert';
-            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const endpoint = process.env.REACT_APP_API_END;
+            const keeys = process.env.REACT_APP_API_KEY;
             const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedOneWeekAgo}`;
 
             try {
@@ -175,8 +157,7 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
                 const data1: CurrencyData = await res.json();
                 setRate1(data1.result);
                 console.log(data1);
-                
-                // setLinkDisable(false);
+
             } catch (e) {
                 console.log('エラーが発生しました', e);
             }
@@ -184,8 +165,8 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         fetchData1wago();
 
         const fetchData2wago = async () => {
-            const endpoint = 'convert';
-            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const endpoint = process.env.REACT_APP_API_END;
+            const keeys = process.env.REACT_APP_API_KEY;
             const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedTwoWeekAgo}`;
 
             try {
@@ -207,8 +188,8 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         fetchData2wago();
 
         const fetchData3wago = async () => {
-            const endpoint = 'convert';
-            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const endpoint = process.env.REACT_APP_API_END;
+            const keeys = process.env.REACT_APP_API_KEY;
             const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedThreeWeekAgo}`;
 
             try {
@@ -222,7 +203,7 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
                 setRate3(data3.result);
                 console.log(data3);
                 
-                // setLinkDisable(false);
+
             } catch (e) {
                 console.log('エラーが発生しました', e);
             }
@@ -230,8 +211,8 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
         fetchData3wago();
 
         const fetchData4wago = async () => {
-            const endpoint = 'convert';
-            const keeys = "fee6feb01162d3fe5c84d5ac41a290d5";
+            const endpoint = process.env.REACT_APP_API_END;
+            const keeys = process.env.REACT_APP_API_KEY;
             const url = `https://api.exchangerate.host/${endpoint}?access_key=${keeys}&from=${from}&to=${to}&amount=${amount}&date=${formattedFourWeekAgo}`;
 
             try {
@@ -245,33 +226,19 @@ export default function RateButton({parsedTrigger}:RateButtonProps) {
                 setRate4(data4.result);;
                 console.log(data4);
                 
-                // setLinkDisable(false);
+
             } catch (e) {
                 console.log('エラーが発生しました', e);
             }
         };
 
         fetchData4wago();
-    }
-    // useEffect(() => {
-    //     //val1,2はオブジェクト型なので一旦sting型へ変更
-    //     if (val1) localStorage.setItem('val1', JSON.stringify(val1));
-    //     if (val2) localStorage.setItem('val2', JSON.stringify(val2));
-    //     const savedVal = localStorage.getItem('val1');
-    //     const savedVal2 = localStorage.getItem('val2');
+
         
-    //     //triggerを変更したら、その値を保存する
-    //     localStorage.setItem('trigger', trigger.toString());
-    //     // if (val1)  console.log(val1.currency);
-    //     // if (val2) console.log(val2.currency);
-    //     // console.log(rate);
-    //     if (val1) localStorage.setItem('currency1', JSON.stringify(val1.currency));
-    //     if (val2) localStorage.setItem('currency2', JSON.stringify(val2.currency));
-    //     // console.log(savedVal);
-    //     // console.log(savedVal2);
-    //     // console.log(parsedTrigger);//再レンダリングされたときに代わる
-    //     console.log(trigger);//getCurrencyRate押したときに代わる
-    // }, [trigger]);
+
+        
+    }
+
     
     return(
         <>

@@ -23,6 +23,13 @@ const Report=()=>{
     // timeDataを数値の配列にマッピングする
     const numericXAxisData = timeData.map((_, index) => index);
 
+    // //過去1カ月のrateをストレージに保存する
+    // if (rate) localStorage.setItem('rate', JSON.stringify(rate));
+    // if (rate1) localStorage.setItem('rate1', JSON.stringify(rate1));
+    // if (rate2) localStorage.setItem('rate2', JSON.stringify(rate2));
+    // if (rate3) localStorage.setItem('rate3', JSON.stringify(rate3));
+    // if (rate4) localStorage.setItem('rate4', JSON.stringify(rate4));
+
     // }
     // const xAxisData = [
     //     new Date("2023-12-04"),

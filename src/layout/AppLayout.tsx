@@ -3,25 +3,17 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import HomeIcon from '@mui/icons-material/Home';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
-import BarChartIcon from '@mui/icons-material/BarChart';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { theme } from '../theme/theme';
+
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
 }
-// bgcolor:(theme)=>theme.palette.expenseColor.main,
-//                     color:"white",borderRadius:"10px",flexGrow:1}
 
-// interface IconBreadcrumbsProps{
-//     linkDisabled:boolean;
-// }
-// {linkDisabled}:IconBreadcrumbsProps
+
 export default function IconBreadcrumbs() {
-//   const linkDisabled = true; // リンクを無効にするためのフラグ
   return (
     <div role="presentation" >
       <Box sx={{display:"flex",justifyContent:"space-between", alignItems:"center", bgcolor:(theme)=>theme.palette.blueColor.main, minHeight:"10vh",padding:"20px"}}>
@@ -39,27 +31,6 @@ export default function IconBreadcrumbs() {
           <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
           Home
          </Link>
-         <Link
-          underline="hover"
-          sx={{
-             display: 'flex', 
-             alignItems: 'center',
-            }}
-          color="inherit"
-        //   href="/material-ui/getting-started/installation/"
-          href="report"
-         >
-          <BarChartIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          {/* style={{pointerEvents:linkDisabled ? 'none' : 'auto'}} */}
-          <span>Report</span>
-         </Link>
-        {/* <Typography
-          sx={{ display: 'flex', alignItems: 'center' }}
-          color="text.primary"
-        >
-          <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Breadcrumb
-        </Typography> */}
         </Breadcrumbs>
       </Box>
       <Outlet/>
